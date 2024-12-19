@@ -1,28 +1,15 @@
 ﻿using NUnit.Framework;
 using QACalculator;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTests
 {
     [TestFixture]
     public class CalculatorTests
     {
-        public CalculatorTests()
-        {
-
-        }
-
-        ~CalculatorTests()
-        {
-
-        }
 
         [Test]
-        public void subtractTest()
+        public void Subtract_Returns_Result()
         {
             var calculator = new Calculator();
             int expected = 2;
@@ -31,7 +18,7 @@ namespace UnitTests
         }
 
         [Test]
-        public void subtract2Test()
+        public void Subtract_From_Negative_Returns_Result()
         {
             var calculator = new Calculator();
             int expected = -8;
@@ -39,41 +26,53 @@ namespace UnitTests
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void subtract3Test()
-        {
-            var calculator = new Calculator();
-            int expected = 2;
-            int actual = calculator.Subtract("4,2");
-            Assert.AreEqual(expected, actual);
-        }
+        //[Test]
+        //public void subtract3Test()
+        //{
+        //    var calculator = new Calculator();
+        //    int expected = 2;
+        //    int actual = calculator.Subtract("4,2");
+        //    Assert.AreEqual(expected, actual);
+        //}
 
         [Test]
-        public void divide()
+        public void Divide_Returns_Result()
         {
             var calculator = new Calculator();
             int expected = 5;
             int actual = calculator.Divide("10,2");
             Assert.AreEqual(expected, actual);
         }
+
         [Test]
-        public void divide2()
+        public void Divide_By_Negative_Returns_Negative_Result()
         {
             var calculator = new Calculator();
             int expected = -5;
             int actual = calculator.Divide("10,-2");
             Assert.AreEqual(expected, actual);
         }
+
         [Test]
-        public void multiply()
+        public void Divide_Using_Char_Instead_Of_Int_Returns_Negative_Result()
+        {
+            var calculator = new Calculator();
+            int expected = -9999;
+            int actual = calculator.Divide("10,a");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Multiply_Returns_Result()
         {
             var calculator = new Calculator();
             int expected = 50;
             int actual = calculator.Multiply("25,2");
             Assert.AreEqual(expected, actual);
         }
+
         [Test]
-        public void multiply2()
+        public void Multiply_Large_Number_Returns_Result()
         {
             var calculator = new Calculator();
             int expected = 600;
@@ -82,7 +81,25 @@ namespace UnitTests
         }
 
         [Test]
-        public void dividewithsomeexception()
+        public void Multiply_By_Negative_Returns_Negative_Result()
+        {
+            var calculator = new Calculator();
+            int expected = -50;
+            int actual = calculator.Multiply("25,-2");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Multiply_With_Invalid_Seperator_Returns_Negative_Result()
+        {
+            var calculator = new Calculator();
+            int expected = -9999;
+            int actual = calculator.Multiply("25.2");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Divide_By_Zero_Throws_Exception()
         {
             var calculator = new Calculator();
             Assert.Throws<DivideByZeroException>(() => calculator.Divide("10,0"));
