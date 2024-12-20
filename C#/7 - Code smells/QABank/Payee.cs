@@ -10,6 +10,6 @@ namespace QABank
     {
         private string name, address;
         private DateTime date;
-        private double amount;
+        public double amount;
     }
 }
