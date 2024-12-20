@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static QAShopping.ShoppingConstants;
+
 namespace QAShopping
 {
     public static class Basket
     {
-        public static string PrintBasket(dynamic basket)
+        public static string PrintBasket(List<ShoppingItem> basket)
         {
             string basketOutput = "Item Name\t\t\tPrice\n";
             double total = 0;
@@ -26,7 +28,8 @@ namespace QAShopping
                         case "_price":
                             double price = property.GetValue(item);
                             bool vat = item.GetType().GetProperty("_vat").GetValue(item);
-                            double priceToAdd = vat ? Math.Round(price * 1.2, 2) : price;
+                            // Constants for VAT and decimal places
+                            double priceToAdd = vat ? Math.Round(price * VAT_RATE, DECIMAL_PLACES_2) : price;
                             basketOutput += $"{priceToAdd:0.00}\n";
                             total += priceToAdd;
                             break;

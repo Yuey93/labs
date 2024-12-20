@@ -11,18 +11,8 @@ namespace UnitTests
     [TestFixture]
     public class CalculatorTests
     {
-        public CalculatorTests()
-        {
-
-        }
-
-        ~CalculatorTests()
-        {
-
-        }
-
         [Test]
-        public void subtractTest()
+        public void Subtract_ReturnsCorrectValue()
         {
             var calculator = new Calculator();
             int expected = 2;
@@ -31,7 +21,7 @@ namespace UnitTests
         }
 
         [Test]
-        public void subtract2Test()
+        public void Subtract_From_Minus_ReturnsCorrectValue()
         {
             var calculator = new Calculator();
             int expected = -8;
@@ -40,52 +30,111 @@ namespace UnitTests
         }
 
         [Test]
-        public void subtract3Test()
+        public void Subtract_InvalidInput_ReturnsZero()
         {
             var calculator = new Calculator();
-            int expected = 2;
-            int actual = calculator.Subtract("4,2");
+            int expected = 0;
+            int actual = calculator.Subtract("5,a");
             Assert.AreEqual(expected, actual);
         }
 
         [Test]
-        public void divide()
+        public void Divide_ReturnsCorrectValue()
         {
             var calculator = new Calculator();
-            int expected = 5;
-            int actual = calculator.Divide("10,2");
+            int expected = 2;
+            int actual = calculator.Divide("10,5");
             Assert.AreEqual(expected, actual);
         }
+
         [Test]
-        public void divide2()
+        public void Divide_Minus_ReturnsCorrectValue()
         {
             var calculator = new Calculator();
             int expected = -5;
             int actual = calculator.Divide("10,-2");
             Assert.AreEqual(expected, actual);
         }
+
         [Test]
-        public void multiply()
+        public void Divide_InvalidInput_ReturnsZero()
+        {
+            var calculator = new Calculator();
+            int expected = 0;
+            int actual = calculator.Divide("10,a");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Multiply_ReturnsCorrectValue()
         {
             var calculator = new Calculator();
             int expected = 50;
             int actual = calculator.Multiply("25,2");
             Assert.AreEqual(expected, actual);
         }
+
         [Test]
-        public void multiply2()
+        public void Multiply_InvalidInput_ReturnsZero()
         {
             var calculator = new Calculator();
-            int expected = 600;
-            int actual = calculator.Multiply("150,4");
+            int expected = 0;
+            int actual = calculator.Multiply("25,a");
             Assert.AreEqual(expected, actual);
         }
 
         [Test]
-        public void dividewithsomeexception()
+        public void Divide_By_Zero_ThrowsException()
         {
             var calculator = new Calculator();
             Assert.Throws<DivideByZeroException>(() => calculator.Divide("10,0"));
+        }
+
+        // TDD
+
+        [Test]
+        public void TestCalc_EmptyString_ReturnsZero()
+        {
+            var calculator = new Calculator();
+            double expected = 0;
+            double actual = calculator.Calc("");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestCalc_JustNumber_ReturnsNumber()
+        {
+            var calculator = new Calculator();
+            double expected = 5;
+            double actual = calculator.Calc("5");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestCalc_TwoNumbersSeparatedByComma_ReturnsSum()
+        {
+            var calculator = new Calculator();
+            double expected = 8;
+            double actual = calculator.Calc("5,3");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestCalc_TwoNumbersSeparatedByNewLine_ReturnsSum()
+        {
+            var calculator = new Calculator();
+            double expected = 8;
+            double actual = calculator.Calc("5\n3");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestCalc_ThreeNumbersSeperatedByCommaOrNewLine_ReturnsSum()
+        {
+            var calculator = new Calculator();
+            double expected = 12;
+            double actual = calculator.Calc("5\n3,4");
+            Assert.AreEqual(expected, actual);
         }
     }
 }
